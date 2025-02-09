@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi novia?</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Corazones animados en el fondo */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff6b6b" d="M50 90.7c-22.5 0-40.7-18.2-40.7-40.7 0-10.8 4.2-20.9 11.8-28.5C28.4 13.9 38.5 9.7 50 9.7c11.5 0 21.6 4.2 29.2 11.8 7.6 7.6 11.8 17.7 11.8 29.2 0 22.5-18.2 40.7-40.7 40.7zM50 15c-10.1 0-19.5 3.9-26.5 10.9C16.5 32.9 12.7 42.3 12.7 50c0 19.3 15.6 34.9 34.9 34.9 19.3 0 34.9-15.6 34.9-34.9 0-7.7-3.8-17.1-10.9-24.1C69.5 18.9 60.1 15 50 15z"/></svg>') repeat;
+            opacity: 0.3;
+            animation: moveHearts 10s linear infinite;
+            z-index: -1;
+        }
+
+        /* Animación de corazones */
+        @keyframes moveHearts {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 -100vh; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #yesButton {
+            background-color: #ff6b6b;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #ff4757;
+            color: white;
+            position: relative;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #response {
+            margin-top: 20px;
+        }
+
+        #responseText {
+            font-size: 24px;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        #responseImage {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="question">¿Quieres ser mi novia?</h1>
+        <div class="buttons">
+            <button id="yesButton">SI</button>
+            <button id="noButton">NO</button>
+        </div>
+        <div id="response" class="hidden">
+            <p id="responseText"></p>
+            
+            <img id="responseImage" src="https://drive.google.com/uc?export=view&id=1-1vWWkT4ugD_-7NiObFETZ50o4KZaTeT" alt="Respuesta de amor">
+
+        </div>
+    </div>
+    <script>
+        document.getElementById('yesButton').addEventListener('click', function() {
+            document.getElementById('question').style.display = 'none';
+            document.querySelector('.buttons').style.display = 'none';
+            document.getElementById('response').classList.remove('hidden');
+            document.getElementById('responseText').textContent = 'Sabía que aceptarías, my love ❤️';
+            document.getElementById('responseImage').src = 'images/mi_imagen.jpg';
+        });
+
+        document.getElementById('noButton').addEventListener('click', function() {
+            moveButtonRandomly();
+        });
+
+        function moveButtonRandomly() {
+            const noButton = document.getElementById('noButton');
+            const container = document.querySelector('.container');
+            const maxX = window.innerWidth - noButton.offsetWidth - 20;
+            const maxY = window.innerHeight - noButton.offsetHeight - 20;
+
+            let randomX = Math.random() * maxX;
+            let randomY = Math.random() * maxY;
+
+            // Evita que el botón se salga de la caja
+            const minX = container.offsetLeft;
+            const minY = container.offsetTop;
+
+            if (randomX < minX) randomX = minX;
+            if (randomY < minY) randomY = minY;
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+        }
+    </script>
+</body>
+</html>
